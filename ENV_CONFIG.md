@@ -9,8 +9,32 @@ This project supports separate configurations for **DEV** and **PROD** environme
 cp .env.example .env
 
 # Edit .env and add your credentials
-# Set DBT_TARGET=dev or DBT_TARGET=prod to control which environment to use
+# Then use the switch-env.sh script to load the environment
 ```
+
+## Switching Environments (Recommended Method)
+
+### Use the Helper Scripts
+
+```bash
+# Switch to DEV environment
+source switch-env.sh dev
+
+# Switch to PROD environment
+source switch-env.sh prod
+
+# Check current environment
+./show-env.sh
+```
+
+The `switch-env.sh` script will:
+- ✅ Load credentials from `.env` file
+- ✅ Set `DBT_TARGET` to dev or prod
+- ✅ Export environment-specific `DBT_REDSHIFT_*` variables
+- ✅ Display confirmation of loaded settings
+- ✅ Warn when switching to PROD
+
+**Note**: You must use `source switch-env.sh` (not `./switch-env.sh`) so variables are exported to your current shell.
 
 ## Environment Variables
 
