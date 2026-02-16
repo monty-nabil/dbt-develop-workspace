@@ -1,37 +1,22 @@
 # Environment Configuration Guide
 
-This project supports separate configurations for **DEV** and **PROD** environments.
+This project supports separate configurations for **DEV** and **PROD** environments using a single `.env` file.
 
 ## Quick Start
 
-### Option 1: Use Main .env File (Recommended for Development)
 ```bash
 # Copy the example file
 cp .env.example .env
 
-# Edit .env and set DBT_TARGET=dev or DBT_TARGET=prod
-# Then configure the corresponding environment variables
-```
-
-### Option 2: Use Environment-Specific Files
-```bash
-# For development
-cp .env.dev.example .env.dev
-# Edit .env.dev with your dev credentials
-
-# For production
-cp .env.prod.example .env.prod
-# Edit .env.prod with your prod credentials
-
-# Load the appropriate file
-source .env.dev  # or source .env.prod
+# Edit .env and add your credentials
+# Set DBT_TARGET=dev or DBT_TARGET=prod to control which environment to use
 ```
 
 ## Environment Variables
 
-### Required for Both Environments
+### Required
 - `AZURE_DEVOPS_PAT` - Azure DevOps Personal Access Token (required to clone DBT repo)
-- `DBT_TARGET` - Set to `dev` or `prod` to control which database to use
+- `DBT_TARGET` - Set to `dev` or `prod` to control which database to use (default: `dev`)
 
 ### DEV Environment Variables
 - `DBT_DEV_REDSHIFT_HOST` - Development Redshift cluster endpoint
@@ -83,7 +68,8 @@ default:
 ### Method 1: Change DBT_TARGET in .env
 ```bash
 # Edit .env and change:
-DBT_TARGET=dev  # or DBT_TARGET=prod
+DBT_TARGET=dev  # for development
+DBT_TARGET=prod # for production
 ```
 
 ### Method 2: Override with Command Line
@@ -108,6 +94,7 @@ For Codespaces, add these as repository secrets:
 
 **Required:**
 - `AZURE_DEVOPS_PAT`
+- `DBT_TARGET` (set to `dev` or `prod`)
 
 **DEV Environment:**
 - `DBT_DEV_REDSHIFT_HOST`
@@ -116,7 +103,7 @@ For Codespaces, add these as repository secrets:
 - `DBT_DEV_REDSHIFT_DATABASE`
 - `DBT_DEV_REDSHIFT_SCHEMA`
 
-**PROD Environment:**
+**PROD Environment (if needed):**
 - `DBT_PROD_REDSHIFT_HOST`
 - `DBT_PROD_REDSHIFT_USER`
 - `DBT_PROD_REDSHIFT_PASSWORD`
@@ -125,9 +112,10 @@ For Codespaces, add these as repository secrets:
 
 ## Security Best Practices
 
-1. ✅ **Never commit** `.env`, `.env.dev`, or `.env.prod` files
+1. ✅ **Never commit** `.env` file - it's gitignored
 2. ✅ Use **different credentials** for dev and prod
 3. ✅ Limit **prod access** to authorized personnel only
 4. ✅ Rotate credentials regularly
 5. ✅ Use **read-only** credentials when possible for dev
 6. ✅ Set `DBT_TARGET=dev` as default to prevent accidental prod changes
+7. ✅ All credentials are in ONE file - easier to manage and secure
