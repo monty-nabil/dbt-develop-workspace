@@ -1,0 +1,63 @@
+{
+  "name": "Aryza DBT - GitHub Codespaces",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "context": ".."
+  },
+  "features": {
+    "ghcr.io/devcontainers/features/git:1": {},
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {
+      "version": "latest",
+      "enableNonRootDocker": "true",
+      "moby": "true"
+    }
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-python.python",
+        "ms-python.vscode-pylance",
+        "ms-python.black-formatter",
+        "ms-python.pylint",
+        "innoverio.vscode-dbt-power-user",
+        "bastienboutonnet.vscode-dbt",
+        "samuelcolvin.jinjahtml",
+        "redhat.vscode-yaml",
+        "mtxr.sqltools",
+        "ms-azuretools.vscode-docker",
+        "eamodio.gitlens",
+        "streetsidesoftware.code-spell-checker",
+        "GitHub.copilot",
+        "GitHub.copilot-chat"
+      ],
+      "settings": {
+        "python.formatting.provider": "black",
+        "python.linting.enabled": true,
+        "python.linting.pylintEnabled": true,
+        "editor.formatOnSave": true,
+        "editor.codeActionsOnSave": {
+          "source.organizeImports": "explicit"
+        },
+        "[python]": {
+          "editor.defaultFormatter": "ms-python.black-formatter"
+        },
+        "[sql]": {
+          "editor.defaultFormatter": "mtxr.sqltools"
+        },
+        "[jinja]": {
+          "editor.defaultFormatter": "samuelcolvin.jinjahtml"
+        },
+        "terminal.integrated.defaultProfile.linux": "bash"
+      }
+    }
+  },
+  "mounts": [
+  ],
+  "postCreateCommand": "bash .devcontainer/post-create.sh",
+  "containerEnv": {
+    "PIPENV_VENV_IN_PROJECT": "0",
+    "PYTHONPATH": "/workspaces/DBT",
+    "SETUPTOOLS_USE_DISTUTILS": "stdlib"
+  },
+  "remoteUser": "vscode"
+}
